@@ -1,1 +1,19 @@
-teet
+{
+  "timeZone": "America/New_York",
+  "dependencies": {
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "sheets": {
+    "macros": [{
+      "menuName": "email",
+      "functionName": "email"
+    }, {
+      "menuName": "emailRes",
+      "functionName": "emailRes"
+    }, {
+      "menuName": "invalid",
+      "functionName": "invalid"
+    }]
+  }
+}
