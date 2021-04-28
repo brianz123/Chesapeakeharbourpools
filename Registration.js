@@ -1,5 +1,5 @@
 /*** ---Written by Brian Zagalsky---
-This function sends an email to the homeowner pool users with their Pool ID
+This function sends an email to the homeowner pool users with their Pool ID -- Complete--
 ***/ 
 
 function emailResident(row = 3) {
