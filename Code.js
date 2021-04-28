@@ -18,7 +18,7 @@ function emailResident(row = 3) {
        data =  data.getSheetByName('DataList'); //get data sheet from seperate spreadsheet
 
     if(checkFromLastYear(row)){
-      return true;
+      return false;
     }else{  
       var name = sheet.getRange(row, 6).getValue(); //get last name of user 6
       if (name !== ''){ // check if there is name in cell
@@ -45,6 +45,9 @@ function emailResident(row = 3) {
         data.getRange(dataRow,15).setValue(true); //sets 2021 confirmed to true
         
         Logger.log(data.getRange(dataRow, 1,1,5).getValues());
+        MailApp.sendEmail(email ,'Pool Registration Confirmation', 'Pool User ' + name + ',\nThank you for registering to use the pool!\n\nYOUR POOL ID IS: ' + ID + '\n\nPLEASE SAVE THIS EMAIL AND YOUR POOL ID! You will need your Pool ID number to enter the pool.\n\nThank you,\nCHCA Ad Hoc Pool Committee');
+    
+    data.getRange(dataRow, 7).splitTextToColumns(",");
       }
      /*var text = 'Below is the Pool Reservation Link.  Please open the link below to reserve your time slot at the Bay Front or Village Pools. Both pools are on the same link, just scroll down for the Village Pool. We are continuing to develop this form and plan to provide soon for reserving a slot a couple of days in advance. Thank you for your patience.\n' +
 
@@ -58,9 +61,7 @@ function emailResident(row = 3) {
 'Link: chcapools.com';*/
       
       
-    MailApp.sendEmail(email ,'Pool Registration Confirmation', 'Pool User ' + name + ',\nThank you for registering to use the pool!\n\nYOUR POOL ID IS: ' + ID + '\n\nPLEASE SAVE THIS EMAIL AND YOUR POOL ID! You will need your Pool ID number to enter the pool.\n\nThank you,\nCHCA Ad Hoc Pool Committee');
     
-    data.getRange(dataRow, 7).splitTextToColumns(",");
     }
    
   
@@ -88,7 +89,7 @@ function emailMarina(row) {
      var data = SpreadsheetApp.openByUrl(urlList[5]);
        data =  data.getSheetByName('DataList'); //get data sheet from seperate spreadsheet
  if(checkFromLastYear(row)){
-      return true;
+      return false;
   
   }else{
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Form Responses 1');
@@ -136,12 +137,12 @@ function emailMarina(row) {
   return true;
 }
 /*** 
-This subfucntion returns the row that the chosen email is at
+This subfucntion returns the row that the chosen ID is at
 ***/
-function findEmail(arr, x) {
+function findID(arr, x) {
 // Logger.log(arr);
   for(var i = 0; i < arr.length; i++){
-    if (String(arr[i][0]).toLowerCase === String(x).toLowerCase){
+    if (arr[i][0]== x){
       //Logger.log('found');
         Logger.log('found at index ' + (i+1));
       return i+1; 
@@ -173,26 +174,30 @@ function checkFromLastYear(row){
       var poolID = sheet.getRange(row, 5).getValue(); //previous pool ID 5
 
       
-      var emailList = data.getSheetValues(1,4, data.getLastRow(),1); //gets list of email from dataBase
-      var emailRow = findEmail(emailList,email) +1; //finds the row the email is in
-      Logger.log(emailRow);
-      Logger.log(email);
-      if(emailRow < 0){
-        MailApp.sendEmail(email , 'UNSUCCESSFUL Pool Registration', "Your email address was not in the system. Plese register for a new Pool ID number or contact support at help@chcapools.com");
-        return false;
+      var IDList = data.getSheetValues(1,1, data.getLastRow(),1); //gets list of email from dataBase
+      var IDLoc = findID(IDList,poolID); //finds the row the email is in
+      var ID = data.getSheetValues(IDLoc,1, 1,1);
+   
+      if(IDLoc < 0){
+        MailApp.sendEmail(email , 'UNSUCCESSFUL Pool Registration', "Your Pool ID was not in the system. Plese register for a new Pool ID number or contact support at help@chcapools.com");
+        Logger.log("bad ID" + poolID);
+        sheet.getRange(row, 1,1, sheet.getMaxColumns()).setBackgroundRGB(255,165,0);
+        return true;
       }
-      var ID = data.getRange(emailRow, 1).getValue();
-      var name = data.getRange(emailRow, 2).getValue();
-      Logger.log(ID  +" Pool ID: " + poolID);
-      if (ID == poolID){
-        Logger.log("ID match");
-        data.getRange(emailRow,15).setValue(true);
+      var oldEmail = data.getRange(IDLoc, 4).getValue();
+      var name = data.getRange(IDLoc, 2).getValue();
+      if (String(email).toLowerCase() === String(oldEmail).toLowerCase()){
+        Logger.log("email match");
+        data.getRange(IDLoc,15).setValue(true);
       }else{
         MailApp.sendEmail(email , 'UNSUCCESSFUL Pool Registration', "Your email address does not match your Pool ID. Plese go to https://sites.google.com/chcapools.com/chcapool/forgot-pool ID for help or register for a new Pool ID number");
-        return false;
+        sheet.getRange(row, 1,1, sheet.getMaxColumns()).setBackgroundRGB(255,165,0);
+        Logger.log("bad email" + oldEmail + "_" + email);
+        return true;
       }
       MailApp.sendEmail(String(email) , 'Pool Registration Confirmation', 'Pool User ' + name + ',\nThank you for registering to use the pool!\n\nYOUR POOL ID IS: ' + ID +
                         '\n\nPLEASE SAVE THIS EMAIL AND YOUR POOL ID! You will need your Pool ID number to enter the pool.\n'+'\n\nThank you,\nCHCA Ad Hoc Pool Committee');
+    sheet.getRange(row, 1,1, sheet.getMaxColumns()).setBackgroundRGB(0,0,255);
     return true;
     
 }else 

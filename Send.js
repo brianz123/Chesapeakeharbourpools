@@ -18,15 +18,11 @@ function email() {
         Logger.log('marina')
         if (emailMarina(i)){
           sheet.getRange(i, 1,1, sheet.getMaxColumns()).setBackgroundRGB(0,0,255);
-        }else
-          sheet.getRange(i, 1,1, sheet.getMaxColumns()).setBackgroundRGB(255,165,0);
-        
-        
+        }
       }else{
         if(emailResident(i)){
           sheet.getRange(i, 1,1, sheet.getMaxColumns()).setBackgroundRGB(0,0,255);
-        }else
-          sheet.getRange(i, 1,1, sheet.getMaxColumns()).setBackgroundRGB(255,165,0);
+        }
         Logger.log('resident');
       }
     }
