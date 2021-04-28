@@ -1,19 +1,10 @@
 {
   "timeZone": "America/New_York",
-  "dependencies": {
+  "dependencies": {},
+  "webapp": {
+    "executeAs": "USER_ACCESSING",
+    "access": "ANYONE"
   },
   "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8",
-  "sheets": {
-    "macros": [{
-      "menuName": "email",
-      "functionName": "email"
-    }, {
-      "menuName": "emailRes",
-      "functionName": "emailRes"
-    }, {
-      "menuName": "invalid",
-      "functionName": "invalid"
-    }]
-  }
+  "runtimeVersion": "V8"
 }
