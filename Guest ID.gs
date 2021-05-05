@@ -22,7 +22,7 @@ Logger.log(ans)
       data.getRange(c, 2).setValue(name); // assign last name to ID
       data.getRange(c, 3).setValue(email); // assign email to ID
       data.getRange(c, 4).setValue(residentPoolID) //assign first name to ID
-      data.getRange(c, 5).setValue(eighteeeighteenPlus) //assign if they are 18+
+      data.getRange(c, 5).setValue(eighteeeighteenPlus) //assign if they     are 18+
       data.getRange(c, 6).setValue(signature) //assign signasignature if not 18+
       Logger.log(data.getRange(c, 1,1,8).getValues());
       MailApp.sendEmail(email , 'Pool Guest Registration Confirmation', 'Guest ' + name + ',\nThank you for registering!\n\nYOUR GUEST ID IS: ' + ID + ". It will only be vaild when entering the pool with your resident."+
