@@ -6,7 +6,7 @@ function OnFormSubmit() {
   var ans = getArrayOfLastSubmissionsAnswers(urlForm);
 Logger.log(ans)
   var name = ans[2];//get last name of user
-  var email = ans[1]; //get email
+  var email = ans[1].toString().titleCase() //get email
   var residentPoolID = ans[3]; // get first and last name
   var eighteeeighteenPlus = ans[4];
   var signature = ans[5]
