@@ -1,6 +1,6 @@
 /***
 This script is used to automatically add Staff members to the database
-***/function OnFormSubmit() {
+***/function OnStaffFormSubmit() {
   var urlForm = 'https://docs.google.com/forms/d/1OvFyeRyBs5Gq8gE2g6Mf1eQMAcUOKtiZ71lWU-HKQk8/edit'; //Residents
   var ans = getArrayOfLastSubmissionsAnswers(urlForm);
   var url = 'https://docs.google.com/spreadsheets/d/12UCpBvr82Zh1h3TLLC3Q34yYZdUShLWoHsEuw8ghj50/edit#gid=1859174399';

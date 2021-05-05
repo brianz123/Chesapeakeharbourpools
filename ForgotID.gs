@@ -1,5 +1,5 @@
 
-function onFormSubmit(e){
+function onForgotIDFormSubmit(e){
   var max = 100;
 
   var dash = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1oF-udC_qamZLgjgJB_szd14Gt_XSjpZ0KjYzGBKRvA4/edit#gid=549595336'); // Dashboard

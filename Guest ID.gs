@@ -1,12 +1,12 @@
 
-/***This script is used to automatically add Staff members to the database
+/***This script is used to automatically add Guest members to the database
 ***/
-function OnFormSubmit() {
+function OnGuestFormSubmit() {
   var urlForm = 'https://docs.google.com/forms/d/18qeiH4vK2vfQOqO5L3OfC-tKhkHmfKdr6jiRq0NUN2U/edit#responses'; //Residents
   var ans = getArrayOfLastSubmissionsAnswers(urlForm);
 Logger.log(ans)
-  var name = ans[2];//get last name of user
-  var email = ans[1].toString().titleCase() //get email
+  var name = titleCase(ans[2].toString());//get last name of user
+  var email = ans[1].toString().toLowerCase(); //get email
   var residentPoolID = ans[3]; // get first and last name
   var eighteeeighteenPlus = ans[4];
   var signature = ans[5]
@@ -51,4 +51,14 @@ function getArrayOfLastSubmissionsAnswers(urlForm) {
   return thisSubmissionsAnswers;
 }
 
+/***
+This function sets the selected string to title case
+***/
+function titleCase(str) {
+  str = String(str).toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+  }
+  return str.join(' ');
+}
 
