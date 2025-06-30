@@ -59,5 +59,4 @@ Source code and documentation:
 ## Author
 
 **Brian Zagalsky**  
-Electrical Engineering Student  
-University of Maryland, College Park
+
